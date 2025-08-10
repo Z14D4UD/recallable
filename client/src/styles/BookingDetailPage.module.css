@@ -1,0 +1,145 @@
+/* BookingDetailPage.module.css */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.customerInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menuIcon {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.main {
+  background: #fafafa;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.main h1 {
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.main p {
+  margin: 0.5rem 0;
+}
+
+.section {
+  margin: 1rem 0;
+}
+
+.licenseImg {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  display: block;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.checkboxLabel input {
+  margin-right: 0.5rem;
+  accent-color: #38b6ff;
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.approveBtn,
+.rejectBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.approveBtn {
+  background-color: #38b6ff;
+  color: #fff;
+}
+
+.approveBtn:hover {
+  background-color: #2a9edb;
+}
+
+.rejectBtn {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.rejectBtn:hover {
+  background-color: #c0392b;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .buttons {
+    flex-direction: column;
+  }
+}
+
+.customerInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+}

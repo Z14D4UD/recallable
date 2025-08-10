@@ -1,0 +1,162 @@
+:root {
+     --primary: #38b6ff;
+    --secondary: #484848;
+    --bg: #ffffff;
+    --card-bg: #fafafa;
+    --border-radius: 12px;
+    --shadow: 0 4px 12px rgba(0,0,0,0.05);
+    --spacing: 1.5rem;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: var(--spacing);
+    font-family: 'Inter', sans-serif;
+    color: var(--secondary);
+    background: var(--bg);
+  }
+  
+  .title {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+    color: #333;
+  }
+  
+  .hostedBy {
+    margin-bottom: var(--spacing);
+    font-weight: 500;
+    color: #666;
+  }
+  
+  .card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: var(--spacing);
+    margin-bottom: var(--spacing);
+  }
+  
+  .cardTitle {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    text-align: center;
+    color: #333;
+  }
+  
+  .stars {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .starFilled,
+  .starEmpty {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s;
+  }
+  .starFilled:hover,
+  .starEmpty:hover {
+    transform: scale(1.1);
+  }
+  
+  .datesCard {
+    display: flex;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: var(--spacing);
+  }
+  
+  .dateCol {
+    flex: 1;
+    padding: var(--spacing);
+  }
+  .divider {
+    width: 1px;
+    background: #e0e0e0;
+  }
+  .dateLabel {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .dateValue {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  .timeValue {
+    font-size: 0.875rem;
+    color: #999;
+  }
+  
+  .infoRow {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: var(--spacing);
+    margin-bottom: var(--spacing);
+  }
+  .infoIcon {
+    flex-shrink: 0;
+    margin-right: 1rem;
+    stroke: var(--primary);
+  }
+  .infoTitle {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #333;
+  }
+  .infoSub {
+    color: #666;
+  }
+  
+  .commentSection {
+    margin-bottom: var(--spacing);
+  }
+  .commentLabel {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  .commentBox {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    resize: vertical;
+    font-size: 1rem;
+    font-family: inherit;
+  }
+  
+  .submitBtn {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--primary);
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .submitBtn:hover {
+    background: #e14c50;
+  }
+  
+  .guardText,
+  .error {
+    text-align: center;
+    padding: var(--spacing);
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-radius: var(--border-radius);
+    color: #665c00;
+  }
+  

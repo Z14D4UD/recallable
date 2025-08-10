@@ -1,0 +1,205 @@
+/* client/src/styles/BusinessPublic.module.css */
+
+.page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+  }
+  
+  /* ──────────────────────────────────────────────────── */
+  /* HEADER SECTION                                     */
+  /* ──────────────────────────────────────────────────── */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+  }
+  
+  .header > div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+    margin: 0 0 4px 0;
+    font-weight: 600;
+  }
+  
+  .header p {
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .header span {
+    font-size: 0.9rem;
+    color: #777;
+  }
+  
+  /* ──────────────────────────────────────────────────── */
+  /* VERIFIED INFO SECTION                               */
+  /* ──────────────────────────────────────────────────── */
+  .verified {
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .verified h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  
+  .verified ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .verified li {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .verified li::before {
+    content: '✔︎';
+    margin-right: 8px;
+    color: #2c9c2c;
+    font-size: 1rem;
+  }
+  
+  /* ──────────────────────────────────────────────────── */
+  /* VEHICLES (LISTINGS) SECTION                         */
+  /* ──────────────────────────────────────────────────── */
+  .vehicles {
+    margin-bottom: 40px;
+  }
+  
+  .vehicles h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  
+  /* Grid container for car cards */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Each car “card” link */
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+  
+  .card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+  }
+  
+  /* Body of each car card */
+  .cardBody {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .cardBody h4 {
+    font-size: 1.1rem;
+    margin: 0 0 6px 0;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  
+  .cardBody span {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .cardBody strong {
+    font-size: 1rem;
+    color: #222;
+    margin-top: auto;
+  }
+  
+  /* ──────────────────────────────────────────────────── */
+  /* RESPONSIVE ADJUSTMENTS                              */
+  /* ──────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .header > div {
+      margin-top: 12px;
+    }
+    .verified,
+    .vehicles {
+      padding: 16px;
+    }
+    .avatar {
+      width: 100px;
+      height: 100px;
+    }
+    .vehicles h2 {
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .avatar {
+      width: 80px;
+      height: 80px;
+    }
+    .header h1 {
+      font-size: 1.5rem;
+    }
+    .vehicles h2 {
+      font-size: 1.3rem;
+    }
+    .cardBody h4 {
+      font-size: 1rem;
+    }
+    .cardBody span, .cardBody strong {
+      font-size: 0.9rem;
+    }
+  }
+  

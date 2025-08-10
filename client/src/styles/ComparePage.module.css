@@ -1,0 +1,140 @@
+/* client/src/styles/ComparePage.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f4f6f8;
+  font-family: 'Roboto', sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 1rem;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #38b6ff;
+  cursor: pointer;
+}
+
+.menuIcon {
+  font-size: 1.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.main {
+  flex: 1;
+  padding: 80px 1rem 1rem;
+}
+
+/* ─── CARD GRID ────────────────────────────────────────────────── */
+/* Default: two cards per row (including on mobile) */
+.cardsContainer {
+  display: grid;
+  gap: 1.5rem;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* Small desktops: three cards per row */
+@media (min-width: 769px) {
+  .cardsContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Large desktops: four cards per row */
+@media (min-width: 1200px) {
+  .cardsContainer {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ─── CARD ──────────────────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow .2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* force a consistent aspect ratio on every image */
+.cardImage {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* ─── INFO BLOCK ───────────────────────────────────────────────── */
+.cardInfo {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* push button to bottom */
+}
+
+.cardTitle {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.cardLocation,
+.cardPrice {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+}
+
+/* ─── DETAILS LIST ─────────────────────────────────────────────── */
+.detailsList {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  flex-grow: 1;
+}
+
+.detailsList li {
+  margin-bottom: 0.6rem;
+  line-height: 1.4;
+  font-size: 0.9rem;
+}
+
+/* ─── BOOK BUTTON ──────────────────────────────────────────────── */
+.bookButton {
+  margin-top: auto;
+  padding: 0.75rem;
+  border: none;
+  background: #6C63FF;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.bookButton:hover {
+  background: #5046c9;
+}
