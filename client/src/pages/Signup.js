@@ -1,187 +1,190 @@
-import React, { useState } from 'react';
-import axios               from 'axios';
-import { jwtDecode }       from 'jwt-decode';
-import { useNavigate }     from 'react-router-dom';
-import { useTranslation }  from 'react-i18next';
-import styles              from '../styles/Signup.module.css';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import styles from "../styles/Signup.module.css";
+
+import logo from "../assets/logo1.png";
+import laptop from "../assets/Laptop.png"; // small brand visual (optional)
+
+const API_BASE = process.env.REACT_APP_API_BASE || ""; // e.g. http://localhost:5000
 
 export default function Signup() {
-  const { t }    = useTranslation();
-  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [form, setForm] = useState({ firstName: "", lastName: "", email: "" });
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState("");
 
-  const [name,        setName]        = useState('');
-  const [email,       setEmail]       = useState('');
-  const [password,    setPassword]    = useState('');
-  const [role,        setRole]        = useState('customer');   // default
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => (document.body.style.overflow = "");
+  }, [menuOpen]);
 
-  // NEW: track whether they've accepted the terms
-  const [acceptTerms, setAcceptTerms] = useState(false);
+  const onChange = (e) =>
+    setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
 
-  // NEW: state for date of birth & to toggle input type
-  const [dateOfBirth,  setDateOfBirth]  = useState('');
-  const [dobInputType, setDobInputType] = useState('text');
-
-  // NEW: state for the 5% fee acknowledgement (business only)
-  const [ackFee,       setAckFee]       = useState(false);
-
-  const goHome = () => navigate('/');
-
-  const handleSignup = async (e) => {
+  const handleContinue = async (e) => {
     e.preventDefault();
-
-    // NEW: enforce terms acceptance
-    if (!acceptTerms) {
-      return alert('Please accept the terms and policies');
-    }
-
-    // existing guards
-    if (role === 'business' && !ackFee) {
-      return alert('You must acknowledge Hyre’s 5% success fee to sign up as a business.');
-    }
-    if (role === 'customer' && !dateOfBirth) {
-      return alert('Please provide your date of birth.');
-    }
-
+    setErr("");
+    if (!form.email) return setErr("Please enter your email.");
     try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/auth/signup`,
-        {
-          name,
-          email,
-          password,
-          accountType: role,
-          dateOfBirth,     // sent when customer
-          acceptTerms,     // always sent
-        }
-      );
-
-      /* save tokens & redirect */
-      localStorage.setItem('token',       data.token);
-      localStorage.setItem('accountType', role);
-
-      try {
-        const id  = jwtDecode(data.token).id;
-        const key = role === 'business' ? 'businessId' : 'userId';
-        if (id) localStorage.setItem(key, id);
-      } catch { /* ignore */ }
-
-      if (role === 'business')      navigate('/dashboard/business');
-      else if (role === 'affiliate') navigate('/dashboard/affiliate');
-      else                           navigate('/account');
-    } catch (err) {
-      console.error(err.response?.data || err);
-      alert(err.response?.data?.msg || 'Signup failed');
+      setLoading(true);
+      const res = await fetch(`${API_BASE}/api/auth/email-signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error("Failed to create account.");
+      // redirect to your app/dashboard or back to home
+      window.location.href = "/";
+    } catch (e) {
+      setErr(e.message);
+    } finally {
+      setLoading(false);
     }
   };
 
+  const google = () => {
+    window.location.href = `${API_BASE}/api/auth/google`;
+  };
+  const apple = () => {
+    window.location.href = `${API_BASE}/api/auth/apple`;
+  };
+
   return (
-    <div className={styles.container}>
-      {/* Left panel */}
-      <div className={styles.leftPanel}>
-        <div className={styles.desktopWave}/>
-        <div className={styles.brandContainer} onClick={goHome}>
-          <div className={styles.brandTitle}>Hyre</div>
-          <div className={styles.brandSubtext}>Let your journey begin...</div>
+    <div className={styles.page}>
+      {/* HEADER */}
+      <header className={styles.header}>
+        <div className={styles.headerInner}>
+          <div className={styles.brand}>
+            <img className={styles.logo} src={logo} alt="Recallable" />
+          </div>
+
+          <nav className={styles.nav}>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#about">About</a>
+            <Link to="/login" className={styles.login}>Log in</Link>
+            <Link to="/signup" className={styles.cta}>Get Started</Link>
+          </nav>
+
+          <button
+            className={styles.menuBtn}
+            aria-label="Open menu"
+            onClick={() => setMenuOpen(true)}
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24">
+              <path d="M4 6h16M4 12h16M4 18h16"
+                    stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+            </svg>
+          </button>
         </div>
-      </div>
+      </header>
 
-      {/* Right panel */}
-      <div className={styles.rightPanel}>
-        <div className={styles.formContainer}>
-          <h2 className={styles.formTitle}>Sign Up</h2>
-          <p  className={styles.formSubtitle}>Create your account to continue</p>
+      {/* MOBILE SIDE MENU */}
+      <aside
+        className={`${styles.mobileMenu} ${menuOpen ? styles.open : ""}`}
+        aria-hidden={!menuOpen}
+      >
+        <div className={styles.mobileBar}>
+          <button
+            className={styles.closeBtn}
+            aria-label="Close menu"
+            onClick={() => setMenuOpen(false)}
+          >
+            ×
+          </button>
+        </div>
 
-          <form className={styles.form} onSubmit={handleSignup}>
-            <input
-              className={styles.inputField}
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={e => setName(e.target.value)}
-              required
-            />
-            <input
-              className={styles.inputField}
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-            />
+        <nav className={styles.mobileNav}>
+          <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
+          <a href="#features" onClick={() => setMenuOpen(false)}>Features</a>
+          <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+          <a href="#blog" onClick={() => setMenuOpen(false)}>Blog</a>
+          <a href="#docs" onClick={() => setMenuOpen(false)}>Docs</a>
+          <a href="#careers" onClick={() => setMenuOpen(false)}>Careers</a>
+        </nav>
 
-            {/* mobile-friendly DOB */}
-            <input
-              className={styles.inputField}
-              type={dobInputType}
-              placeholder="dd/mm/yyyy"
-              value={dateOfBirth}
-              onFocus={() => setDobInputType('date')}
-              onBlur={() => !dateOfBirth && setDobInputType('text')}
-              onChange={e => setDateOfBirth(e.target.value)}
-              required={role === 'customer'}
-            />
+        <div className={styles.mobileActions}>
+          <Link to="/login" className={styles.mobileGhost} onClick={() => setMenuOpen(false)}>
+            Sign in
+          </Link>
+          <Link to="/signup" className={styles.mobilePrimary} onClick={() => setMenuOpen(false)}>
+            Get Started
+          </Link>
+        </div>
+      </aside>
 
-            <input
-              className={styles.inputField}
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-            />
+      {/* AUTH SECTION */}
+      <main className={styles.main}>
+        <section className={styles.authWrap}>
+          <div className={styles.logoTop}>
+            <img src={logo} alt="" />
+          </div>
+          <h1 className={styles.title}>Sign up</h1>
 
-            <select
-              className={styles.inputField}
-              value={role}
-              onChange={e => setRole(e.target.value)}
-              required
-            >
-              <option value="business">{t('Sign up as a Business')}</option>
-              <option value="customer">{t('Sign up as a Customer')}</option>
-              <option value="affiliate">{t('Sign up as an Affiliate')}</option>
-            </select>
-
-            {/* NEW: Accept terms (always shown) */}
-            <div className={styles.checkboxContainer}>
-              <input
-                id="acceptTerms"
-                type="checkbox"
-                className={styles.checkbox}
-                checked={acceptTerms}
-                onChange={e => setAcceptTerms(e.target.checked)}
-              />
-              <label htmlFor="acceptTerms" className={styles.checkboxLabel}>
-                I accept the terms and policy
-              </label>
+          <form className={styles.card} onSubmit={handleContinue}>
+            <div className={styles.row2}>
+              <div className={styles.field}>
+                <label>First name</label>
+                <input
+                  name="firstName"
+                  placeholder="Your first name"
+                  value={form.firstName}
+                  onChange={onChange}
+                />
+              </div>
+              <div className={styles.field}>
+                <label>Last name</label>
+                <input
+                  name="lastName"
+                  placeholder="Your last name"
+                  value={form.lastName}
+                  onChange={onChange}
+                />
+              </div>
             </div>
 
-            {/* NEW: only for business */}
-            {role === 'business' && (
-              <div className={styles.checkboxContainer}>
-                <input
-                  id="ackFee"
-                  type="checkbox"
-                  className={styles.checkbox}
-                  checked={ackFee}
-                  onChange={e => setAckFee(e.target.checked)}
-                />
-                <label htmlFor="ackFee" className={styles.checkboxLabel}>
-                  I acknowledge and agree that Hyre charges a 5% success fee from each completed booking.
-                </label>
-              </div>
-            )}
+            <div className={styles.field}>
+              <label>Email</label>
+              <input
+                name="email"
+                type="email"
+                placeholder="Your email address"
+                value={form.email}
+                onChange={onChange}
+                required
+              />
+            </div>
 
-            <button className={styles.signupButton} type="submit">
-              Sign Up
+            {err && <div className={styles.error}>{err}</div>}
+
+            <button className={styles.primary} disabled={loading}>
+              {loading ? "Please wait…" : "Continue"}
             </button>
+
+            <div className={styles.hr}>
+              <span>OR</span>
+            </div>
+
+            <button className={styles.social} type="button" onClick={google}>
+              <span className={styles.iconGoogle} aria-hidden="true" />
+              Continue with Google
+            </button>
+
+            <button className={styles.social} type="button" onClick={apple}>
+              <span className={styles.iconApple} aria-hidden="true"></span>
+              Continue with Apple
+            </button>
+
+            <p className={styles.meta}>
+              Already have an account? <Link to="/login">Sign in</Link>
+            </p>
           </form>
 
-          <div className={styles.extraRow}>
-            Already have an account?
-            <a className={styles.extraLink} href="/login">Log In</a>
-          </div>
-        </div>
-      </div>
+          {/* Optional brand image */}
+          <img src={laptop} className={styles.heroImage} alt="" />
+        </section>
+      </main>
     </div>
   );
 }
