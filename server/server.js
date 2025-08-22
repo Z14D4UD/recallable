@@ -4,22 +4,32 @@ const session = require("express-session");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
+
+// IMPORTANT: requiring config/passport sets up the Google strategy
 const passport = require("./config/passport");
 
 const app = express();
 
-// DB
+// ---- DB ----
 const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/recallable";
 mongoose.set("strictQuery", true);
-mongoose.connect(MONGO_URI).then(()=>console.log("Mongo connected")).catch(console.error);
+mongoose
+  .connect(MONGO_URI)
+  .then(() => console.log("Mongo connected"))
+  .catch(console.error);
 
-// Core middleware
+// ---- Core middleware ----
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:5000",
-  credentials: true,
-}));
+
+// Frontend is the React dev server on :3000 in dev
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+app.use(
+  cors({
+    origin: FRONTEND_URL,
+    credentials: true,
+  })
+);
 
 app.set("trust proxy", 1);
 app.use(
@@ -31,17 +41,17 @@ app.use(
     cookie: {
       httpOnly: true,
       sameSite: "lax",
-      secure: false, // set true behind HTTPS/proxy in prod
+      secure: false, // set true when behind HTTPS in prod
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     },
   })
 );
 
-// Passport
+// ---- Passport ----
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); // requires serialize/deserialize in config/passport
 
-// Routes
+// ---- Routes ----
 app.use("/api/auth", require("./routes/auth"));
 
 const PORT = process.env.PORT || 5000;

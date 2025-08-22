@@ -1,48 +1,61 @@
 const express = require("express");
-const router = express.Router();
+const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const User = require("../models/User");
 
-// --- Email lightweight signup (no password, demo-friendly) ---
+const router = express.Router();
+const CLIENT_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+
+function setJwtCookie(res, user) {
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || "devjwt", {
+    expiresIn: "7d",
+  });
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+}
+
+/** Email “continue” flow (your existing form) */
 router.post("/email-signup", async (req, res) => {
-  const { firstName, lastName, email } = req.body || {};
-  if (!email) return res.status(400).json({ error: "Email required" });
   try {
-    // Create or reuse minimal local user
-    let user = await User.findOne({ provider: "email", email });
-    if (!user) user = await User.create({ provider: "email", email, firstName, lastName });
-    req.login(user, (err) => {
-      if (err) return res.status(500).json({ error: "Login failed" });
-      return res.json({ ok: true, user });
-    });
+    const { firstName = "", lastName = "", email } = req.body || {};
+    if (!email) return res.status(400).json({ error: "Email is required" });
+
+    let user = await User.findOne({ email });
+    if (!user) {
+      user = await User.create({ email, firstName, lastName, provider: "email" });
+    }
+
+    setJwtCookie(res, user);
+    res.json({ ok: true, user: { id: user._id, email: user.email } });
   } catch (e) {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: e.message || "Failed to create account" });
   }
 });
 
-// --- Google OAuth ---
-router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+/** Google OAuth */
+router.get(
+  "/google",
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+    prompt: "select_account",
+  })
+);
+
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: `${process.env.FRONTEND_URL}/login` }),
-  (req, res) => res.redirect(process.env.FRONTEND_URL || "/")
+  passport.authenticate("google", {
+    failureRedirect: `${CLIENT_URL}/login?error=google`,
+    session: true, // using express-session
+  }),
+  (req, res) => {
+    // Optionally mint our JWT too
+    if (req.user) setJwtCookie(res, req.user);
+    res.redirect(CLIENT_URL);
+  }
 );
-
-// --- Apple OAuth ---
-router.get("/apple", passport.authenticate("apple"));
-router.post(
-  "/apple/callback",
-  passport.authenticate("apple", { failureRedirect: `${process.env.FRONTEND_URL}/login` }),
-  (req, res) => res.redirect(process.env.FRONTEND_URL || "/")
-);
-
-// Session helpers
-router.get("/me", (req, res) => res.json({ user: req.user || null }));
-router.post("/logout", (req, res, next) => {
-  req.logout(err => {
-    if (err) return next(err);
-    req.session.destroy(() => res.clearCookie("sid").json({ ok: true }));
-  });
-});
 
 module.exports = router;
