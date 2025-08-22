@@ -1,0 +1,63 @@
+:root{
+  --green:#29a86b; --green-600:#2aa66d; --green-700:#1f8b59;
+  --ink:#0b0b0b; --muted:#6b7280; --border:#e6e7eb;
+}
+
+/* Sticky gradient header (exactly like Home) */
+.header{
+  position:sticky; top:0; z-index:60;
+  background:linear-gradient(180deg,#e6f5ec 0%,rgba(230,245,236,0) 100%);
+  border-bottom:1px solid rgba(0,0,0,.04);
+  backdrop-filter:blur(6px);
+}
+.headerInner{
+  max-width:1200px; margin:0 auto; height:64px; padding:0 22px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+
+.brand{display:flex; align-items:center; gap:10px;}
+.logo{height:140px; width:auto; display:block; object-fit:contain;}
+.logoMobile{height:52px; width:auto; display:block; object-fit:contain;}
+
+.nav{display:flex; gap:20px; align-items:center;}
+.nav a{ text-decoration:none; color:#2b2b2b; }
+.login{opacity:.85;}
+.cta{
+  text-decoration:none; color:#fff; background:var(--green-600);
+  padding:10px 16px; border-radius:12px; font-weight:600;
+  box-shadow:0 6px 16px rgba(42,166,109,.25);
+}
+
+/* Hamburger */
+.menuBtn{
+  display:none; width:42px; height:42px; background:transparent; border:0; cursor:pointer;
+  align-items:center; justify-content:center;
+}
+.menuIcon{ color:#111; display:block; }
+
+/* Mobile drawer */
+.mobileMenu{
+  position:fixed; inset:0; background:#fff; z-index:80; transform:translateX(100%);
+  transition:transform .28s ease; display:flex; flex-direction:column;
+}
+.open{ transform:translateX(0); }
+.mobileBar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 18px; border-bottom:1px solid #eee;
+}
+.brandMobile{display:flex; align-items:center; gap:10px;}
+.closeBtn{font-size:32px; width:44px; height:44px; line-height:1; border:0; background:transparent; cursor:pointer;}
+.mobileNav{padding:28px 22px; display:flex; flex-direction:column; gap:18px;}
+.mobileNav a{font-size:2rem; line-height:1.15; color:#333; text-decoration:none;}
+.mobileActions{margin-top:auto; padding:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.mobileGhost{border:1px solid #e6e7eb; border-radius:10px; padding:12px 14px; text-align:center; text-decoration:none; color:#111; background:#fff;}
+.mobilePrimary{border:0; border-radius:10px; padding:12px 14px; text-align:center; text-decoration:none; color:#fff; background:#111;}
+
+/* Responsive */
+@media (max-width:1024px){
+  .nav{display:none;}
+  .menuBtn{display:flex;}
+}
+@media (max-width:860px){
+  .headerInner{padding-left:0; padding-right:8px;}
+}

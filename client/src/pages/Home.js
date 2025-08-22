@@ -29,7 +29,7 @@ export default function Home() {
             <a href="#pricing">Pricing</a>
             <a href="#about">About</a>
             <Link to="/login" className={styles.login}>Log in</Link>
-            <Link to="/signup" className={styles.cta}>Get Started</Link>
+            <Link to="/signup" className={styles.cta}>Sign up</Link>
           </nav>
 
           {/* Mobile hamburger (added SVG, kept original spans) */}
@@ -114,7 +114,7 @@ export default function Home() {
                 <Link to="/signup" className={styles.primary}>Get Started</Link>
                 <label className={styles.uploadWrap}>
                   <input type="file" accept=".pdf,.doc,.docx,.txt,.md" />
-                  <span className={styles.uploadBtn}>Upload a PDF</span>
+                  <span className={styles.uploadBtn}>Upload a file</span>
                 </label>
               </div>
 
