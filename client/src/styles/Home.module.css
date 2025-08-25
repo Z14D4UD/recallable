@@ -1,49 +1,66 @@
 :root{
-  --green:#29a86b;
-  --green-600:#2aa66d;
-  --green-700:#1f8b59;
+  /* Light lavender theme */
+  --primary:#6E5AE6;          /* soft purple (brand) */
+  --primary-600:#5A49D6;
+  --primary-700:#4A3CC4;
+
   --ink:#0b0b0b;
-  --muted:#6b7280;
-  --border:#e6e7eb;
+  --muted:#71717a;
+  --border:#ececf2;
   --bg:#ffffff;
-  --shadow:0 10px 24px rgba(16,24,40,.08), 0 2px 6px rgba(16,24,40,.06);
+
+  --lav-100:#F7F5FF;          /* very light lavender */
+  --lav-200:#EEE9FF;
+  --rose-50:#FFF6FA;          /* blush hint */
+  --rose-100:#FFE9F3;
+
+  --shadow:0 10px 24px rgba(23,16,40,.08), 0 2px 6px rgba(23,16,40,.06);
 }
 
-.page{background:#fff;color:var(--ink);}
+/* Page */
+.page{ background:var(--bg); color:var(--ink); }
 
-/* Header */
+/* =========================
+   Header (same as hero bg)
+   ========================= */
 .header{
   position:sticky; top:0; z-index:60;
-  background:linear-gradient(180deg,#e6f5ec 0%,rgba(230,245,236,0) 100%);
-  border-bottom:1px solid rgba(0,0,0,.04);
-  backdrop-filter:blur(6px);
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(110,90,230,.18) 0%, rgba(110,90,230,0) 60%),
+    radial-gradient(140% 120% at 100% 0%, rgba(255,233,243,.5) 0%, rgba(255,233,243,0) 60%),
+    linear-gradient(180deg, var(--lav-100) 0%, #FFFFFF 100%);
+  border-bottom:1px solid rgba(0,0,0,.05);
+  backdrop-filter:blur(8px);
 }
 .headerInner{
   max-width:1200px; margin:0 auto; height:64px; padding:0 22px;
   display:flex; align-items:center; justify-content:space-between;
 }
-.brand{display:flex; align-items:center; gap:10px;}
-/* Keep your logo sizing; we won’t shrink it */
-.logo{height:140px; width:auto; display:block; object-fit:contain;}
-.logoMobile{height:52px; width:auto; display:block; object-fit:contain;}
+.brand{ display:flex; align-items:center; gap:10px; }
 
-.nav{display:flex; gap:20px; align-items:center;}
+/* Bigger logo */
+.logo{
+  height:180px; width:auto; display:block; object-fit:contain;
+}
+.logoMobile{ height:72px; width:auto; display:block; object-fit:contain; }
+
+.nav{ display:flex; gap:20px; align-items:center; }
 .nav a{ text-decoration:none; color:#2b2b2b; }
-.login{opacity:.85;}
+.login{ opacity:.85; }
+
+/* Lighter purple CTA */
 .cta{
-  text-decoration:none; color:#fff; background:var(--green-600);
-  padding:10px 16px; border-radius:12px; font-weight:600;
-  box-shadow:0 6px 16px rgba(42,166,109,.25);
+  text-decoration:none; color:#fff; background:#a997ff;
+  padding:12px 20px; border-radius:12px; font-weight:700;
+  box-shadow:0 6px 16px rgba(169,151,255,.25);
 }
 
-/* Hamburger (existing button kept; we add SVG + ensure visibility) */
+/* Hamburger */
 .menuBtn{
-  display:none; width:42px; height:42px; border:1px solid #e6e7eb; border-radius:12px;
-  background:#fff; align-items:center; justify-content:center; gap:5px; cursor:pointer;
+  display:none; width:42px; height:42px; border:0; border-radius:12px;
+  background:transparent; align-items:center; justify-content:center; cursor:pointer;
 }
-.menuBtn span{display:block; width:22px; height:2px; background:#111; border-radius:2px;}
-/* NEW: SVG icon style (added) */
-.menuIcon{ color:#111; display:block; }
+.menuIcon{ color:#1f1f1f; display:block; }
 
 /* Mobile side menu */
 .mobileMenu{
@@ -51,195 +68,363 @@
   transition:transform .28s ease; display:flex; flex-direction:column;
 }
 .mobileMenu.open{ transform:translateX(0); }
-.mobileBar{display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid #eee;}
-.brandMobile{display:flex; align-items:center; gap:10px;}
-.closeBtn{font-size:32px; width:44px; height:44px; line-height:1; border:0; background:transparent; cursor:pointer;}
-.mobileNav{padding:28px 22px; display:flex; flex-direction:column; gap:18px;}
-.mobileNav a{font-size:2rem; line-height:1.15; color:#333; text-decoration:none;}
-.mobileActions{margin-top:auto; padding:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px;}
-.mobileGhost{border:1px solid #e6e7eb; border-radius:10px; padding:12px 14px; text-align:center; text-decoration:none; color:#111; background:#fff;}
-.mobilePrimary{border:0; border-radius:10px; padding:12px 14px; text-align:center; text-decoration:none; color:#fff; background:#111;}
+.mobileBar{
+  display:flex; align-items:center; justify-content:flex-end;
+  padding:16px 18px; border-bottom:1px solid #eee;
+}
+.closeBtn{
+  font-size:32px; width:44px; height:44px; line-height:1;
+  border:0; background:transparent; cursor:pointer;
+}
+.mobileNav{ padding:28px 22px; display:flex; flex-direction:column; gap:18px; }
+.mobileNav a{ font-size:1.6rem; line-height:1.2; color:#333; text-decoration:none; }
+.mobileActions{ margin-top:auto; padding:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.mobileGhost{
+  border:1px solid #e6e7eb; border-radius:10px; padding:12px 14px; text-align:center;
+  text-decoration:none; color:#111; background:#fff;
+}
+.mobilePrimary{
+  border:0; border-radius:10px; padding:12px 14px; text-align:center;
+  text-decoration:none; color:#fff; background:var(--primary-700);
+}
 
-/* HERO */
+/* ================
+   HERO (centered)
+   ================ */
 .hero{
   background:
-    radial-gradient(120% 120% at 0% 0%, rgba(41,168,107,.20) 0%, rgba(41,168,107,0) 60%),
-    radial-gradient(140% 120% at 100% 0%, rgba(41,168,107,.18) 0%, rgba(41,168,107,0) 60%),
-    #fff;
+    radial-gradient(120% 120% at 0% 0%, rgba(110,90,230,.18) 0%, rgba(110,90,230,0) 60%),
+    radial-gradient(140% 120% at 100% 0%, rgba(255,233,243,.5) 0%, rgba(255,233,243,0) 60%),
+    linear-gradient(180deg, var(--lav-100) 0%, #FFFFFF 100%);
   border-bottom:1px solid var(--border);
 }
+
+/* When using 2-column hero elsewhere */
 .heroInner{
-  max-width:1200px; margin:0 auto; padding:48px 22px 36px;
+  max-width:1200px; margin:0 auto; padding:64px 22px 40px;
   display:grid; grid-template-columns:1.05fr .95fr; gap:28px; align-items:center;
 }
-.heroLeft h1{
-  font-size:clamp(2.2rem,5vw,4rem);
-  line-height:1.05; letter-spacing:-.02em; margin:0 0 10px;
+
+/* Centered variant used now */
+.heroInnerCentered{
+  max-width:1100px; margin:0 auto;
+  padding:120px 22px 80px;
+  text-align:center; display:flex; flex-direction:column; align-items:center;
 }
-.heroSub{color:#333; font-size:1.1rem; max-width:560px; margin:0 0 18px;}
-.heroActions{display:flex; gap:12px; align-items:center; margin:18px 0 26px;}
+
+/* Big headline like Lovable */
+.heroInnerCentered h1{
+  font-size:clamp(2.6rem, 8vw, 4.5rem); /* ~72px desktop */
+  line-height:1.08; letter-spacing:-.02em; margin:0 0 16px;
+}
+
+/* Subheading */
+.heroSub{
+  font-size:1.25rem; max-width:760px; margin:0 0 28px; color:#3b3b3b;
+}
+
+/* Prompt bar – big, comfy */
+.promptWrap{
+  position:relative; display:flex; align-items:center;
+  border:1px solid var(--border); border-radius:28px; background:#fff;
+  padding:18px 20px; gap:14px; box-shadow:0 10px 28px rgba(110,90,230,.12);
+  max-width:980px; width:100%;
+}
+.tagRow{ display:flex; align-items:center; gap:8px; }
+.smallAdd{
+  border:1px solid #e9e9ef; background:#fff; width:36px; height:36px; border-radius:999px;
+  display:grid; place-items:center; cursor:pointer; font-weight:700; font-size:18px;
+}
+.pill{
+  background:var(--lav-200); color:#4e4a7a; border:1px solid #e2def8;
+  padding:8px 14px; border-radius:999px; font-size:1rem; font-weight:600;
+}
+.promptInput{
+  flex:1; min-width:120px; border:0; outline:none; font-size:1.25rem; color:#111;
+  background:transparent; padding:8px 10px; line-height:1.5;
+}
+.promptGo{
+  width:50px; height:50px; border-radius:16px; border:0; cursor:pointer;
+  background:var(--primary); color:#fff; font-weight:800; display:grid; place-items:center;
+  font-size:20px; box-shadow:0 12px 24px rgba(110,90,230,.25);
+}
+
+/* Hero actions */
+.heroActions{ display:flex; gap:12px; align-items:center; margin:22px 0 0; }
 .primary{
-  display:inline-block; text-decoration:none; color:#fff; background:var(--green-600);
-  padding:12px 18px; border-radius:12px; font-weight:700; box-shadow:0 6px 16px rgba(42,166,109,.25);
+  display:inline-block; text-decoration:none; color:#fff; background:var(--primary-600);
+  padding:12px 18px; border-radius:12px; font-weight:800; box-shadow:0 6px 16px rgba(94,74,230,.25);
 }
-.uploadWrap{position:relative;}
-.uploadWrap input{position:absolute; inset:0; opacity:0; cursor:pointer;}
+/* Lighter purple primary for hero */
+.primaryLight{
+  display:inline-block; text-decoration:none; color:#fff; background:#a997ff;
+  padding:16px 28px; border-radius:14px; font-weight:800;
+  box-shadow:0 10px 22px rgba(169,151,255,.30);
+}
+.uploadWrap{ position:relative; }
+.uploadWrap input{ position:absolute; inset:0; opacity:0; cursor:pointer; }
 .uploadBtn{
-  display:inline-block; padding:12px 16px; border-radius:12px; background:#fff; color:#0f172a;
-  border:1px solid var(--border); font-weight:600;
+  display:inline-block; padding:12px 16px; border-radius:12px; background:#fff; color:#111;
+  border:1px solid var(--border); font-weight:700;
 }
 
-/* trusted logos */
-.trustedText{color:#6b7280; margin:10px 0 14px; font-size:.95rem;}
-.logos{display:flex; gap:28px; align-items:center; flex-wrap:wrap;}
-.logos span{font-weight:800; color:#c3c7cf; letter-spacing:2px;}
-.logos small{font-weight:700; letter-spacing:0}
-
-/* Right column image */
+/* Right image (not used now, kept for reuse) */
 .heroRight{ display:flex; justify-content:center; }
 .heroImage{
   width:560px; max-width:100%; height:auto; display:block;
   filter: drop-shadow(0 12px 30px rgba(16,24,40,.08)) drop-shadow(0 2px 6px rgba(16,24,40,.06));
 }
 
-/* How it works */
-.how{max-width:1200px;margin:0 auto; padding:46px 22px; border-top:1px solid var(--border);}
-.how h2{font-size:clamp(1.6rem,2.6vw,2.2rem); margin:0 0 18px;}
-.howGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.howItem{background:#fff;border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:0 4px 14px rgba(0,0,0,.03);}
-.howItem h3{margin:8px 0 6px;font-size:1.1rem;}
-.howItem p{margin:0;color:#505a66}
-.howIcon{
-  width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
-  background:#eaf7f0;color:#14804a;font-weight:900;
+/* ===============
+   Feature blocks
+   =============== */
+.blocks{ max-width:1200px; margin:0 auto; padding:54px 22px; }
+.blocks h2{ font-size:clamp(1.6rem,2.6vw,2.2rem); margin:0 0 18px; text-align:center; }
+.blockGrid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.block{
+  background:linear-gradient(180deg, #fff 0%, var(--rose-50) 100%);
+  border:1px solid var(--border); border-radius:16px; padding:18px;
+  box-shadow:0 4px 14px rgba(0,0,0,.03);
 }
+.block h3{ margin:8px 0 6px; font-size:1.1rem; }
+.block p{ margin:0; color:#505a66; }
 
-/* Tutor callout */
-.tutor{padding:36px 22px;}
-.tutorInner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:center;}
-.tutorText h2{font-size:clamp(1.7rem,3vw,2.4rem); margin:0 0 8px;}
-.tutorText p{color:#505a66;max-width:520px;margin:0;}
-.tutorCard{
-  background:radial-gradient(140% 120% at 10% 0%, #d9f2e6 0%, #bfe8d3 25%, #a6dfc1 45%, #7fd2a8 80%, #6bc99d 100%);
-  border-radius:16px; padding:18px; box-shadow:var(--shadow);
+/* ============
+   Callout band
+   ============ */
+.callout{
+  background:linear-gradient(180deg, var(--rose-100) 0%, var(--lav-100) 100%);
+  border-top:1px solid var(--border);
 }
-.tutorHeader{
-  background:#eff8f2; border:1px solid #d5ebdf; border-radius:12px; padding:10px 12px;
-  font-weight:700; color:#1b4a33; display:flex; align-items:center; gap:8px;
+.calloutInner{ max-width:1000px; margin:0 auto; padding:56px 22px; text-align:center; }
+.callout h2{ margin:0 0 8px; font-size:clamp(1.8rem,3.2vw,2.4rem); }
+.callout p{ margin:0 0 18px; color:#4b5563; }
+.calloutActions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.ghost{
+  display:inline-block; text-decoration:none; color:#111; background:#fff;
+  border:1px solid var(--border); padding:12px 18px; border-radius:12px; font-weight:700;
 }
-.brandDot{width:12px;height:12px;border-radius:50%;background:#28a568;}
-.ellipsis{margin-left:auto; opacity:.75;}
-.tutorBody{background:#fff;border:1px solid #dbe7df;border-radius:12px;margin-top:12px;padding:14px;}
-.promptLabel{font-weight:700;margin-bottom:10px;}
-.inputRow{display:flex; gap:10px; align-items:center;}
-.inputGhost{flex:1; border:1px dashed #d5dbe0; border-radius:10px; padding:12px 12px; color:#9aa3ad;}
-.exportBtn{
-  border:none; background:var(--green-700); color:#fff; padding:12px 14px; border-radius:10px;
-  font-weight:700; cursor:pointer; box-shadow:0 8px 18px rgba(31,139,89,.25);
-}
-.helperText{margin-top:8px;color:#7a838c;font-size:.92rem;}
-.helperText em{font-style:normal;font-weight:700;color:#2a8357}
-
-/* Bottom features */
-.bottomFeatures{border-top:1px solid var(--border); padding:36px 22px 64px;}
-.bottomGrid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-.bottomGrid h3{margin:0 0 6px;font-size:1.2rem;}
-.bottomGrid p{margin:0;color:#4b5563}
 
 /* Focus styles */
-a:focus-visible, button:focus-visible, .uploadBtn:focus-visible, .cta:focus-visible{
-  outline:3px solid rgba(42,166,109,.4); outline-offset:2px; border-radius:12px;
+a:focus-visible, button:focus-visible, .uploadBtn:focus-visible, .cta:focus-visible, .promptInput:focus-visible{
+  outline:3px solid rgba(110,90,230,.35); outline-offset:2px; border-radius:12px;
 }
 
-/* Responsive */
+/* =================
+   Responsive tweaks
+   ================= */
 @media (max-width:1024px){
-  .nav{display:none;}
-  .menuBtn{display:flex !important;}      /* force-show hamburger */
-  .heroInner{grid-template-columns:1fr; gap:24px;}
-  .tutorInner{grid-template-columns:1fr; gap:18px;}
-  .heroRight{order:2;}
-  .logo{height:142px; padding-left: 0px;}                     /* bigger logo on tablet/phone */
+  .nav{ display:none; }
+  .menuBtn{ display:flex !important; }
+  .heroInner{ grid-template-columns:1fr; gap:24px; }
+  .heroRight{ order:2; }
+  .logo{ height:140px; } /* slightly reduce on tablets */
 }
 
-/* Remove left gap for the logo on small screens */
 @media (max-width:860px){
   .headerInner{
     height:64px;
-    padding-left:0 !important;            /* ← no left gap */
-    padding-right:8px;                    /* keep a little right space */
+    padding-left:0 !important;
+    padding-right:8px;
   }
-  .logo{height: 142px;}                     /* larger on small phones */
-  .howGrid, .bottomGrid{grid-template-columns:1fr;}
+  .logo{ height:136px; }
+  .blockGrid{ grid-template-columns:1fr; }
 }
 
-/* === Force hamburger icon to render on mobile === */
-.menuBtn { position: relative; overflow: visible; }
-
-/* Ensure the SVG is visible and centered */
-.menuBtn svg {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  display: none;            /* default hidden on desktop */
-  width: 26px;
-  height: 26px;
-  color: #111;              /* visible on light header */
+@media (max-width:640px){
+  .heroInnerCentered{ padding:84px 16px 60px; }
+  .promptWrap{ border-radius:22px; padding:14px; gap:10px; }
+  .promptInput{ font-size:1.1rem; }
+  .promptGo{ width:44px; height:44px; border-radius:12px; font-size:18px; }
 }
 
-/* On mobile: show the button, show the SVG, hide the CSS bars */
-@media (max-width: 1024px) {
-  .menuBtn { display: flex !important; }
-  .menuBtn svg { display: block !important; }
-  .menuBtn span { display: none !important; }   /* hide the 3 bar spans */
+/* Ensure header stretches full width so logo hugs left edge */
+.headerInner { padding-left:0 !important; }
+@media (min-width:1025px){
+  .headerInner{ max-width:none !important; width:100% !important; }
+}
+/* --- Mobile polish: keep gutters & stop sideways scroll --- */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* Make the hero copy readable and the input not edge-to-edge */
+@media (max-width: 640px){
+  .heroInnerCentered{ padding: 72px 16px 56px; }       /* side gutters */
+  .heroInnerCentered h1{
+    font-size: clamp(2rem, 7vw, 2.6rem);               /* ~32–42px on phones */
+    word-break: break-word;
+  }
+  .heroSub{
+    font-size: 1.05rem;
+    margin: 0 0 16px;
+    color: #2b2b2b;                                     /* slightly darker for contrast */
+  }
+
+  /* Prompt bar: narrower like Lovable, fully within gutters */
+  .promptWrap{
+    box-sizing: border-box;
+    max-width: 520px;                                   /* cap width */
+    width: 100%;
+    margin: 0 auto;                                     /* center */
+    padding: 12px;                                      /* tighter padding */
+    border-radius: 18px;
+    gap: 10px;
+    box-shadow: 0 8px 18px rgba(110,90,230,.10);
+  }
+  .smallAdd{ width: 30px; height: 30px; font-size: 16px; }
+  .pill{ padding: 6px 10px; font-size: .9rem; }
+  .promptInput{ font-size: 1.05rem; padding: 6px 6px; }
+  .promptGo{ width: 42px; height: 42px; border-radius: 12px; font-size: 18px; }
+
+  /* Logo a touch smaller on narrow phones so it doesn't crowd */
+  .logo{ height: 180px; }
+  
 }
 
-/* === Fix header left gap (all sizes) === */
-.headerInner { padding-left: 0 !important; }
+/* Extra-narrow devices */
+@media (max-width: 400px){
+  .promptWrap{ max-width: 360px; }
+  .heroInnerCentered h1{ font-size: 2.1rem; }
+}
 
-/* When the screen is wide, stretch the header to full width
-   so the logo hugs the viewport’s left edge, not a centered container */
-@media (min-width: 1025px) {
-  .headerInner {
-    max-width: none !important;
-    width: 100% !important;
+/* === Mobile hero spacing & wider input (overrides) === */
+@media (max-width: 640px){
+  /* Make the hero section taller and more relaxed */
+  .heroInnerCentered{
+    padding: 108px 16px 96px;   /* top / sides / bottom  ↑ more height */
+    row-gap: 16px;
+  }
+
+  /* Bigger headline spacing */
+  .heroInnerCentered h1{
+    font-size: clamp(2.2rem, 7.6vw, 2.9rem);
+    line-height: 1.12;
+    margin: 0 0 20px;
+  }
+
+  /* Roomier subheading */
+  .heroSub{
+    font-size: 1.08rem;
+    margin: 0 0 22px;
+  }
+
+  /* WIDER input bar, but still with gutters */
+  .promptWrap{
+    box-sizing: border-box;
+    max-width: none;                          /* remove previous cap */
+    width: calc(100% - 32px);                 /* fill width minus 16px gutters */
+    margin: 0 16px;                           /* center with gutters */
+    padding: 14px 16px;
+    border-radius: 22px;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+  .promptInput{
+    font-size: 1.14rem;
+    padding: 8px 8px;
+    min-width: 0;                              /* prevent overflow */
+  }
+  .promptGo{ width: 46px; height: 46px; border-radius: 12px; font-size: 18px; }
+  .smallAdd{ width: 32px; height: 32px; font-size: 16px; }
+  .pill{ padding: 6px 12px; font-size: .95rem; }
+
+  /* More space between the bar and buttons */
+  .heroActions{
+    margin-top: 26px;
+    gap: 16px;
+  }
+
+  /* Slightly chunkier CTA for easier tap */
+  .primaryLight{
+    padding: 16px 24px;
+    border-radius: 14px;
   }
 }
 
-/* === Make hamburger button transparent (no white square) === */
-.menuBtn {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
+/* Extra-narrow phones */
+@media (max-width: 380px){
+  .heroInnerCentered{ padding: 96px 12px 88px; }
+  .promptWrap{ width: calc(100% - 24px); margin: 0 12px; }
 }
 
-/* Keep a nice hit area but show only the SVG lines */
-.menuBtn svg { color: #111; }
-.menuBtn span { display: none; } /* we’re using the SVG */
-
-/* === Hide logo inside mobile menu overlay === */
-.mobileMenu .brand,
-.mobileMenu .brandMark {
-  display: none !important;
-}
-
-/* If menu is active, hide the logo */
-@media (max-width: 1024px) {
-  .menuOpen .brand,
-  .menuOpen .brandMark {
-    display: none !important;
+/* === Mobile: longer hero + longer input + smaller input text === */
+@media (max-width: 640px){
+  /* Make the whole hero section feel longer/taller */
+  .hero{ min-height: 78vh; }                         /* extend gradient area */
+  .heroInnerCentered{
+    padding: 120px 14px 120px;                       /* more top/bottom space */
+    row-gap: 18px;
   }
+  .heroInnerCentered h1{ margin: 0 0 24px; }
+
+  /* Wider prompt bar (small gutters like Lovable) */
+  .promptWrap{
+    box-sizing: border-box;
+    width: calc(100% - 20px);                        /* almost full width */
+    margin: 0 10px;                                  /* small side gutters */
+    padding: 12px 14px;
+    border-radius: 22px;
+    gap: 12px;
+  }
+
+  /* Smaller input text so the hint fits */
+  .promptInput{
+    min-width: 0;                                    /* allow shrink */
+    font-size: 0.90rem;                              /* smaller text */
+    line-height: 1.45;
+    padding: 9px 9px;
+  }
+  .promptInput::placeholder{
+    font-size: 0.87rem;
+    opacity: .75;
+  }
+
+  /* Keep controls compact */
+  .smallAdd{ width: 30px; height: 30px; font-size: 16px; }
+  .pill{ padding: 6px 10px; font-size: .92rem; }
+  .promptGo{ width: 44px; height: 44px; border-radius: 12px; font-size: 18px; }
+
+  /* Extra breathing room before the buttons */
+  .heroActions{ margin-top: 28px; gap: 16px; }
 }
 
-/* Hide logo inside the mobile drawer header */
-.mobileBar .brandMobile { 
-  display: none !important; 
+/* Extra-narrow phones */
+@media (max-width: 380px){
+  .promptWrap{
+    width: calc(100% - 16px);
+    margin: 0 8px;
+  }
+  .promptInput, .promptInput::placeholder{ font-size: 0.95rem; }
 }
 
-/* Keep close button aligned right in mobile menu */
-.mobileBar {
-  justify-content: flex-end !important;
+/* Kill any container padding/margins on the left */
+.header, .page { margin-left: 0 !important; }
+.headerInner {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
 }
 
-.closeBtn {
-  margin-left: auto !important;
+/* Small right gutter on mobile, none on left */
+@media (max-width: 860px){
+  .headerInner { padding-right: 8px; }
+}
+
+/* Make sure the brand cluster doesn’t add spacing */
+.brand { margin-left: 0 !important; }
+
+/* ===== FORCE LOGO FLUSH-LEFT ON ALL SIZES ===== */
+.headerInner { padding-left: 0 !important; }  /* no container padding */
+.brand { 
+  margin-left: -18px !important;              /* push the logo cluster left */
+  gap: 8px;                                   /* keep spacing tight */
+}
+.logo { 
+  display: block; 
+  margin: 0 !important; 
+}
+
+/* a bit more nudge on wide screens */
+@media (min-width: 1025px){
+  .brand { margin-left: -24px !important; }
 }

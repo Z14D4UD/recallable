@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/Home.module.css";
 
-import logo from "../assets/logo1.png";      // your logo
-import laptop from "../assets/Laptop.png";   // hero image (right side)
+import logo from "../assets/logo1.png";
+import laptop from "../assets/Laptop.png";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [idea, setIdea] = useState("");
 
-  // Lock document scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => (document.body.style.overflow = "");
@@ -20,19 +20,19 @@ export default function Home() {
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <div className={styles.brand}>
-            <img className={styles.logo} src={logo} alt="Recallable" />
+            <img className={styles.logo} src={logo} alt="Hatchable" />
           </div>
 
           {/* Desktop nav */}
           <nav className={styles.nav}>
             <a href="#features">Features</a>
             <a href="#pricing">Pricing</a>
-            <a href="#about">About</a>
-            <Link to="/login" className={styles.login}>Log in</Link>
-            <Link to="/signup" className={styles.cta}>Sign up</Link>
+            <a href="#faq">FAQ</a>
+            <Link to="/login" className={styles.login}>Sign in</Link>
+            <Link to="/signup" className={styles.cta}>Get Started</Link>
           </nav>
 
-          {/* Mobile hamburger (added SVG, kept original spans) */}
+          {/* Mobile hamburger */}
           <button
             className={styles.menuBtn}
             aria-label="Open menu"
@@ -40,11 +40,6 @@ export default function Home() {
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen(true)}
           >
-            {/* original bars (kept) */}
-            <span />
-            <span />
-            <span />
-            {/* added crisp SVG icon */}
             <svg
               className={styles.menuIcon}
               width="28"
@@ -60,17 +55,13 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Mobile side menu */}
+      {/* Mobile menu */}
       <aside
         id="mobile-menu"
         className={`${styles.mobileMenu} ${menuOpen ? styles.open : ""}`}
         aria-hidden={!menuOpen}
       >
         <div className={styles.mobileBar}>
-          <div className={styles.brandMobile}>
-            {/* keep your big logo inside drawer */}
-            <img className={styles.logoMobile} src={logo} alt="Recallable" />
-          </div>
           <button
             className={styles.closeBtn}
             aria-label="Close menu"
@@ -81,12 +72,10 @@ export default function Home() {
         </div>
 
         <nav className={styles.mobileNav}>
-          <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
           <a href="#features" onClick={() => setMenuOpen(false)}>Features</a>
+          <a href="#pricing" onClick={() => setMenuOpen(false)}>Pricing</a>
+          <a href="#faq" onClick={() => setMenuOpen(false)}>FAQ</a>
           <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-          <a href="#blog" onClick={() => setMenuOpen(false)}>Blog</a>
-          <a href="#docs" onClick={() => setMenuOpen(false)}>Docs</a>
-          <a href="#careers" onClick={() => setMenuOpen(false)}>Careers</a>
         </nav>
 
         <div className={styles.mobileActions}>
@@ -94,7 +83,7 @@ export default function Home() {
             Sign in
           </Link>
           <Link to="/signup" className={styles.mobilePrimary} onClick={() => setMenuOpen(false)}>
-            Download
+            Get Started
           </Link>
         </div>
       </aside>
@@ -102,101 +91,80 @@ export default function Home() {
       <main className={styles.main}>
         {/* HERO */}
         <section className={styles.hero}>
-          <div className={styles.heroInner}>
-            <div className={styles.heroLeft}>
-              <h1>Learn smarter<br />with AI</h1>
-              <p className={styles.heroSub}>
-                Transform your notes and docs into smart flashcards for
-                optimized, personalized learning.
-              </p>
+  <div className={styles.heroInnerCentered}>
+    <h1>
+      Launch Your Business<br />in Minutes 🚀
+    </h1>
+    <p className={styles.heroSub}>
+      From logos to legal docs — Hatchable generates everything you need to start fast.
+    </p>
 
-              <div className={styles.heroActions}>
-                <Link to="/signup" className={styles.primary}>Get Started</Link>
-                <label className={styles.uploadWrap}>
-                  <input type="file" accept=".pdf,.doc,.docx,.txt,.md" />
-                  <span className={styles.uploadBtn}>Upload a file</span>
-                </label>
-              </div>
+    {/* Prompt Bar */}
+    <div className={styles.promptWrap}>
+      <div className={styles.tagRow}>
+        <button className={styles.smallAdd} aria-label="Add attachment">＋</button>
+        <span className={styles.pill}>Public</span>
+      </div>
+      <input
+        className={styles.promptInput}
+        placeholder="Describe what you need to launch…"
+        aria-label="Describe what you need to launch"
+      />
+      <button className={styles.promptGo} aria-label="Generate">
+        <span>↗</span>
+      </button>
+    </div>
 
-              <div className={styles.trustedWrap}>
-                <p className={styles.trustedText}>Trusted by students worldwide</p>
-                <div className={styles.logos}>
-                  <span>THE VERGE</span>
-                  <span>TC <small>tecCrunch</small></span>
-                  <span>WIRED</span>
-                  <span>Forbes</span>
-                </div>
-              </div>
+    <div className={styles.heroActions}>
+      <Link to="/signup" className={styles.primaryLight}>Try Hatchable Free</Link>
+      <label className={styles.uploadWrap}>
+        <input type="file" accept=".pdf,.doc,.docx,.txt,.md" />
+        <span className={styles.uploadBtn}>Upload brief</span>
+      </label>
+    </div>
+  </div>
+</section>
+
+
+        {/* Everything in one place */}
+        <section className={styles.blocks} id="features">
+          <h2>Everything in One Place</h2>
+          <div className={styles.blockGrid}>
+            <div className={styles.block}>
+              <h3>Logo & Branding</h3>
+              <p>AI logos, palettes, typography kits.</p>
             </div>
-
-            {/* Right image (dashboard) */}
-            <div className={styles.heroRight} aria-hidden="true">
-              <img src={laptop} alt="" className={styles.heroImage} loading="eager" />
+            <div className={styles.block}>
+              <h3>Legal Documents</h3>
+              <p>Instant NDAs, contracts, registration docs.</p>
+            </div>
+            <div className={styles.block}>
+              <h3>Pitch Decks</h3>
+              <p>Investor‑ready decks to deploy.</p>
+            </div>
+            <div className={styles.block}>
+              <h3>Websites</h3>
+              <p>Landing pages and copy, exportable.</p>
+            </div>
+            <div className={styles.block}>
+              <h3>Marketing</h3>
+              <p>Ads, posts, emails — auto‑generated.</p>
+            </div>
+            <div className={styles.block}>
+              <h3>Automation</h3>
+              <p>Smart AI tools to streamline ops.</p>
             </div>
           </div>
         </section>
 
-        {/* How it works */}
-        <section className={styles.how} id="how">
-          <h2>How it works</h2>
-          <div className={styles.howGrid}>
-            <div className={styles.howItem}>
-              <div className={styles.howIcon}><span>⬆</span></div>
-              <h3>Upload</h3>
-              <p>Add your notes, docs, or articles and let our AI do the rest.</p>
-            </div>
-            <div className={styles.howItem}>
-              <div className={styles.howIcon}><span>⚙</span></div>
-              <h3>Generate</h3>
-              <p>Turn your content into flashcards in seconds with smart, auto‑generated questions.</p>
-            </div>
-            <div className={styles.howItem}>
-              <div className={styles.howIcon}><span>✔</span></div>
-              <h3>Learn</h3>
-              <p>Review your flashcards using proven techniques for effective studying.</p>
-            </div>
-          </div>
-        </section>
-
-        {/* AI tutor callout */}
-        <section className={styles.tutor}>
-          <div className={styles.tutorInner}>
-            <div className={styles.tutorText}>
-              <h2>Get instant answers<br />from your AI tutor</h2>
-              <p>Ask any question to deepen your understanding, get clarifications, and improve retention.</p>
-            </div>
-
-            <div className={styles.tutorCard} aria-hidden="true">
-              <div className={styles.tutorHeader}>
-                <div className={styles.brandDot} /> Get Instant answers?
-                <span className={styles.ellipsis}>• • •</span>
-              </div>
-              <div className={styles.tutorBody}>
-                <div className={styles.promptLabel}>What are neural networks?</div>
-                <div className={styles.inputRow}>
-                  <div className={styles.inputGhost}>Example</div>
-                  <button className={styles.exportBtn}>Go • export</button>
-                </div>
-                <div className={styles.helperText}>Try <em>explain?</em></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Bottom features */}
-        <section className={styles.bottomFeatures} id="features">
-          <div className={styles.bottomGrid}>
-            <div>
-              <h3>Spaced Repetition</h3>
-              <p>Add your notes, docs, or articles and let our AI do the rest.</p>
-            </div>
-            <div>
-              <h3>Customizable Cards</h3>
-              <p>Turn your content into flashcards in seconds with smart, auto‑generated questions.</p>
-            </div>
-            <div>
-              <h3>Progress Tracking</h3>
-              <p>See your streaks, study time, and mastery levels across decks.</p>
+        {/* Secondary callout */}
+        <section className={styles.callout} id="pricing">
+          <div className={styles.calloutInner}>
+            <h2>Your Business, Ready Today</h2>
+            <p>Start free. Upgrade when you need more output, file types, and automations.</p>
+            <div className={styles.calloutActions}>
+              <Link to="/signup" className={styles.primary}>Create my stack</Link>
+              <Link to="/pricing" className={styles.ghost}>See pricing</Link>
             </div>
           </div>
         </section>

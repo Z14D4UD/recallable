@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+html, body, #root {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+*, *::before, *::after { box-sizing: border-box; }
+img { display: block; }
+
+.appShell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1 0 auto;   /* main content grows */
+}

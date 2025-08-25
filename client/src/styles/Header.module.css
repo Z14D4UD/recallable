@@ -45,7 +45,24 @@
   display:flex; align-items:center; justify-content:space-between;
   padding:16px 18px; border-bottom:1px solid #eee;
 }
-.brandMobile{display:flex; align-items:center; gap:10px;}
+/* make the linked brand look like plain content and clickable */
+.brand,
+.brandMobile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Optional: keyboard focus ring for accessibility */
+.brand:focus-visible,
+.brandMobile:focus-visible {
+  outline: 3px solid rgba(42,166,109,.4);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
 .closeBtn{font-size:32px; width:44px; height:44px; line-height:1; border:0; background:transparent; cursor:pointer;}
 .mobileNav{padding:28px 22px; display:flex; flex-direction:column; gap:18px;}
 .mobileNav a{font-size:2rem; line-height:1.15; color:#333; text-decoration:none;}
@@ -61,3 +78,18 @@
 @media (max-width:860px){
   .headerInner{padding-left:0; padding-right:8px;}
 }
+
+/* no extra left padding on the header container */
+.headerInner { padding-left: 0 !important; }
+
+/* mobile: tiny right gutter, none on the left */
+@media (max-width: 860px){
+  .headerInner{
+    padding-left: 0 !important;
+    padding-right: 8px;
+  }
+}
+
+/* make sure nothing adds offset around the logo */
+.brand { margin-left: 0 !important; }
+.logo  { display: block; } /* removes any inline-img whitespace */
